@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.frontend.passHostHeader: "true"
+    traefik.backend.loadbalancer.sticky: "true"
+spec:
+  rules:
+  - host: my-site.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: wordpress-svc
+          servicePort: 80
